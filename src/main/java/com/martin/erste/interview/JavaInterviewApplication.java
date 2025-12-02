@@ -9,17 +9,16 @@ import com.martin.erste.interview.util.InterviewUtil;
 
 public class JavaInterviewApplication {
 	
-	private final WordParser wordParser;
-	private final Set<String> ignoredWords;
+	private final WordParser wordParser;	
 	
-	public JavaInterviewApplication(WordParser parser, Set<String> ignoredWords) {
-		this.wordParser = parser;
-		this.ignoredWords = ignoredWords;
+	public JavaInterviewApplication(WordParser parser) {		
+		this.wordParser = parser;		
 	}
 	
 	public static void main(String args[]) {	
 		InputStream inputStream = JavaInterviewApplication.class.getClassLoader().getResourceAsStream("stopwords.txt");		
-		JavaInterviewApplication app = new JavaInterviewApplication(new WordParser(), InterviewUtil.readIgnoredWordsFromFile(inputStream));
+		Set<String> ignoredWordsFromFile = InterviewUtil.readIgnoredWordsFromFile(inputStream);
+		JavaInterviewApplication app = new JavaInterviewApplication(new WordParser(ignoredWordsFromFile));
 		app.countWordsFromInput();
 	}
 	
@@ -27,7 +26,7 @@ public class JavaInterviewApplication {
 		try (Scanner lineScanner = new Scanner(System.in)) {
 			System.out.print("Enter text: ");
 			String inputLine = lineScanner.nextLine();	
-			System.out.println("Number of words: " + wordParser.getWordsCount(inputLine, ignoredWords));
+			System.out.println("Number of words: " + wordParser.getWordsCount(inputLine));
 		}		
 	}	
 

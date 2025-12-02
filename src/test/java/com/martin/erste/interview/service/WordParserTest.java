@@ -17,7 +17,7 @@ class WordParserTest {
     @BeforeEach
     void setUp() {
         wordParser = new WordParser();
-        wordParserWithIgnoredWords = new WordParser(Set.of("ignore1", "ignore2", "i"));
+        wordParserWithIgnoredWords = new WordParser(Set.of("ignore", "ignorex", "i"));
         
     }
 
@@ -45,10 +45,24 @@ class WordParserTest {
     }
     
     @Test
-    @DisplayName("Should return 0 for blank input")
-    void shouldReturnCorrectFroInputWithNumbersNoIgnoredWordsTest() {      
+    @DisplayName("Should return 4 for input")
+    void shouldReturnCorrectForInputWithNumbersNoIgnoredWordsTest() {      
         int result = wordParser.getWordsCount("ad4Avd454c445rtty6");       
         assertEquals(4, result);
+    }
+    
+    @Test
+    @DisplayName("Should return 0 for only ignored words")
+    void shouldReturnCorrectForInputWithNumbersWithOnlyIgnoredWordsTest() {      
+        int result = wordParserWithIgnoredWords.getWordsCount("ignore ignorex i");
+        assertEquals(0, result);
+    }
+    
+    @Test
+    @DisplayName("Should return 3 for input")
+    void shouldReturnCorrectForInputWithNumbersWithRealAndIgnoredWordsTest() {      
+        int result = wordParserWithIgnoredWords.getWordsCount("ignore ignorex i ddsf dvdvd		ervre  47");
+        assertEquals(3, result);
     }
     
     
