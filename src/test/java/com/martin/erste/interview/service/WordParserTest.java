@@ -13,10 +13,12 @@ class WordParserTest {
 
     private WordParser wordParser;
     private WordParser wordParserWithIgnoredWords;
+    private WordParser wordParserWithUnique;
 
     @BeforeEach
     void setUp() {
         wordParser = new WordParser();
+        wordParserWithUnique = new WordParserWithUnique();
         wordParserWithIgnoredWords = new WordParser(Set.of("ignore", "ignorex", "i"));
         
     }
@@ -78,13 +80,14 @@ class WordParserTest {
     void shouldReturnCorrectForInputWithNumbersWithRealAndIgnoredWordsTest() {      
         int result = wordParserWithIgnoredWords.getWords("ignore ignorex i ddsf dvdvd		ervre  47").size();
         assertEquals(3, result);
-    }
-    
+    }    
     
     @Test
-    @DisplayName("Should return 3 for input")
-    void shouldReturnCorrectForOriginalInputs() {      
-        
+    @DisplayName("Should return 4 for input and the 2 for the unique input")
+    void shouldReturnCorrectForUniqueInputs() {      
+        WordsCountHolder holder = wordParserWithUnique.getWords("aa bb aa bb");
+        assertEquals(4, holder.size());
+        assertEquals(2, holder.originalCount());
     }
     
     

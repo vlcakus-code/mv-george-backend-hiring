@@ -3,10 +3,14 @@ package com.martin.erste.interview.service;
 import java.util.HashSet;
 import java.util.Set;
 
-public class WordParserWithOrigins extends WordParser {	
+public class WordParserWithUnique extends WordParser {	
 	
-	public WordParserWithOrigins(Set<String> ignoredWordsFromFile) {
+	public WordParserWithUnique(Set<String> ignoredWordsFromFile) {
 		super(ignoredWordsFromFile);
+	}
+
+	public WordParserWithUnique() {
+		super();
 	}
 
 	/**

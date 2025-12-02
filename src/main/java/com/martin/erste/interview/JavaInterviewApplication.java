@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.martin.erste.interview.service.WordParser;
-import com.martin.erste.interview.service.WordParserWithOrigins;
+import com.martin.erste.interview.service.WordParserWithUnique;
 import com.martin.erste.interview.service.WordsCountHolder;
 import com.martin.erste.interview.util.InterviewUtil;
 
@@ -20,7 +20,7 @@ public class JavaInterviewApplication {
 	public static void main(String args[]) {			
 		InputStream inputStream = JavaInterviewApplication.class.getClassLoader().getResourceAsStream("stopwords.txt");		
 		Set<String> ignoredWordsFromFile = InterviewUtil.readLinesFromFile(inputStream);
-		JavaInterviewApplication app = new JavaInterviewApplication(new WordParserWithOrigins(ignoredWordsFromFile));
+		JavaInterviewApplication app = new JavaInterviewApplication(new WordParserWithUnique(ignoredWordsFromFile));
 		String param = (args != null && args.length > 0) ? args[0] : null;
 		String line = app.getWordsFromInput(param);
 		if(line == null) {
