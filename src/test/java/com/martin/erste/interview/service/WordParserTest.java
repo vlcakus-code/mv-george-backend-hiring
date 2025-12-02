@@ -25,7 +25,7 @@ class WordParserTest {
     @DisplayName("Should count words correctly")
     void shouldCountWordsCorrectlyNoIgnoredWordsTest() {        
         String input = "Hello 	world";      
-        int result = wordParser.getWordsCount(input);       
+        int result = wordParser.getWords(input).size();       
         assertEquals(2, result);
     }
     
@@ -33,7 +33,7 @@ class WordParserTest {
     @DisplayName("Should count words correctly")
     void shouldCountWordsCorrectlyWithSpecialCharactersTest() {        
         String input = "Hello !dvds&	world";      
-        int result = wordParser.getWordsCount(input);       
+        int result = wordParser.getWords(input).size();       
         assertEquals(3, result);
     }  
     
@@ -41,43 +41,50 @@ class WordParserTest {
     @DisplayName("Should count words correctly")
     void shouldCountWordsCorrectlyWithNoEnglishCharactersTest() {        
         String input = "Hello !dvds&čť	world";      
-        int result = wordParser.getWordsCount(input);       
+        int result = wordParser.getWords(input).size();       
         assertEquals(3, result);
     }    
 
     @Test
     @DisplayName("Should return 0 for null input")
     void shouldReturnZeroForNullInputNoIgnoredWordsTest() {       
-        int result = wordParser.getWordsCount(null);       
+        int result = wordParser.getWords(null).size();       
         assertEquals(0, result);
     }
 
     @Test
     @DisplayName("Should return 0 for blank input")
     void shouldReturnZeroForBlankInputNoIgnoredWordsTest() {      
-        int result = wordParser.getWordsCount("    		");       
+        int result = wordParser.getWords("    		").size();       
         assertEquals(0, result);
     }
     
     @Test
     @DisplayName("Should return 4 for input")
     void shouldReturnCorrectForInputWithNumbersNoIgnoredWordsTest() {      
-        int result = wordParser.getWordsCount("ad4Avd454c445rtty6");       
+        int result = wordParser.getWords("ad4Avd454c445rtty6").size();       
         assertEquals(4, result);
     }
     
     @Test
     @DisplayName("Should return 0 for only ignored words")
     void shouldReturnCorrectForInputWithNumbersWithOnlyIgnoredWordsTest() {      
-        int result = wordParserWithIgnoredWords.getWordsCount("ignore ignorex i");
+        int result = wordParserWithIgnoredWords.getWords("ignore ignorex i").size();
         assertEquals(0, result);
     }
     
     @Test
     @DisplayName("Should return 3 for input")
     void shouldReturnCorrectForInputWithNumbersWithRealAndIgnoredWordsTest() {      
-        int result = wordParserWithIgnoredWords.getWordsCount("ignore ignorex i ddsf dvdvd		ervre  47");
+        int result = wordParserWithIgnoredWords.getWords("ignore ignorex i ddsf dvdvd		ervre  47").size();
         assertEquals(3, result);
+    }
+    
+    
+    @Test
+    @DisplayName("Should return 3 for input")
+    void shouldReturnCorrectForOriginalInputs() {      
+        
     }
     
     

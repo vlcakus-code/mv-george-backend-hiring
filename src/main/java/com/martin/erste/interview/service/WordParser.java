@@ -1,5 +1,8 @@
 package com.martin.erste.interview.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class WordParser {		
@@ -12,30 +15,25 @@ public class WordParser {
 	
 	public WordParser() {
 		this.ignoredWords = null;		
-	}
-	
+	}		
 	
 	/**
 	 * 
-	 * @param in the input word
-	 * @param exceptions The set of 'words' which are not words.
-	 * @return number of words in the input based on requirements in docs folder
+	 * @param in the input word	 * 
+	 * @return The holder which wraps the counts of word and also the count of original words.
 	 */
-	public int getWordsCount(String in) {
-		
+	public WordsCountHolder getWords(String in) {
+		List<String> result = new ArrayList<String>();
 		if(in == null || in.isBlank()) {
-			return 0;			
+			return new WordsCountHolder(new ArrayList<>(), 0);
 		}		
-		String[] words = in.replaceAll("[^a-zA-Z]", " ").split("\\s+");
-		int result = 0;
-		for(String word : words) {
-			
+		String[] words = in.replaceAll("[^a-zA-Z]", " ").split("\\s+");		
+		for(String word : words) {			
 			if((ignoredWords == null || !ignoredWords.contains(word)) && word.length() > 0) {
-				result++;
+				result.add(word);				
 			}
-		}
-		
-		return result;	
+		}		
+		return new WordsCountHolder(result, 0);		
 	}	
 	
 }
