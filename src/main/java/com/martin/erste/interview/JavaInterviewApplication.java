@@ -29,7 +29,7 @@ public class JavaInterviewApplication {
 			}
 		}
 		WordsCountHolder words = app.getWordParser().getWords(line);
-		System.out.println("Number of words: " + words.size() + ", unique: " + words.uniqueCount());		
+		System.out.println("Number of words: " + words.size() + ", unique: " + words.uniqueCount() + "; average word length:" + words.averageWordLength());		
 	}
 	
 	public String getWordsFromInput(final String param) {	
