@@ -24,15 +24,15 @@ public class WordParser {
 	public WordsCountHolder getWords(String in) {
 		List<String> result = new ArrayList<String>();
 		if(in == null || in.isBlank()) {
-			return new WordsCountHolder(new ArrayList<>(), 0);
-		}		
-		String[] words = in.replaceAll("[^a-zA-Z]", " ").split("\\s+");		
+			return new WordsCountHolder(new ArrayList<>());		}		
+		String[] words = in.replaceAll("[^a-zA-Z-]", " ").split("\\s+");
+		
 		for(String word : words) {			
-			if((ignoredWords == null || !ignoredWords.contains(word)) && word.length() > 0) {
+			if((ignoredWords == null || !ignoredWords.contains(word)) && word.length() > 0 && !"-".equals(word)) {
 				result.add(word);				
 			}
 		}		
-		return new WordsCountHolder(result, 0);		
+		return new WordsCountHolder(result);		
 	}	
 	
 }

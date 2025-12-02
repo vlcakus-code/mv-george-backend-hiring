@@ -17,8 +17,7 @@ class WordParserTest {
 
     @BeforeEach
     void setUp() {
-        wordParser = new WordParser();
-        wordParserWithUnique = new WordParserWithUnique();
+        wordParser = new WordParser();       
         wordParserWithIgnoredWords = new WordParser(Set.of("ignore", "ignorex", "i"));
         
     }
@@ -69,6 +68,21 @@ class WordParserTest {
     }
     
     @Test
+    @DisplayName("Should return 2 for input with hypens")
+    void shouldReturnCorrectForyHypenInputs() {      
+        int result = wordParser.getWords("humpty-dumpty  aaa-bbb").size();
+        assertEquals(2, result);      
+    }
+    
+    @Test
+    @DisplayName("Should return 3 for input")
+    void shouldReturnCorrectForyHypenOutOfCharsInputs() {      
+        int result = wordParser.getWords("humpty - dumpty  aaa-bbb").size();
+        assertEquals(3, result);      
+    }    
+    
+    
+    @Test
     @DisplayName("Should return 0 for only ignored words")
     void shouldReturnCorrectForInputWithNumbersWithOnlyIgnoredWordsTest() {      
         int result = wordParserWithIgnoredWords.getWords("ignore ignorex i").size();
@@ -85,12 +99,12 @@ class WordParserTest {
     @Test
     @DisplayName("Should return 4 for input and the 2 for the unique input")
     void shouldReturnCorrectForUniqueInputs() {      
-        WordsCountHolder holder = wordParserWithUnique.getWords("aa bb aa bb");
+        WordsCountHolder holder = wordParser.getWords("aa bb aa bb");
         assertEquals(4, holder.size());
-        assertEquals(2, holder.originalCount());
+        assertEquals(2, holder.uniqueCount());
     }
     
     
-    
+
     
 }
