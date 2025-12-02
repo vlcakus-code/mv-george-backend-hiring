@@ -23,12 +23,27 @@ class WordParserTest {
 
     @Test
     @DisplayName("Should count words correctly")
-    void shouldCountWordsCorrectlyNoIgnoredWordsTest() {
-        
+    void shouldCountWordsCorrectlyNoIgnoredWordsTest() {        
         String input = "Hello 	world";      
         int result = wordParser.getWordsCount(input);       
         assertEquals(2, result);
     }
+    
+    @Test
+    @DisplayName("Should count words correctly")
+    void shouldCountWordsCorrectlyWithSpecialCharactersTest() {        
+        String input = "Hello !dvds&	world";      
+        int result = wordParser.getWordsCount(input);       
+        assertEquals(3, result);
+    }  
+    
+    @Test
+    @DisplayName("Should count words correctly")
+    void shouldCountWordsCorrectlyWithNoEnglishCharactersTest() {        
+        String input = "Hello !dvds&čť	world";      
+        int result = wordParser.getWordsCount(input);       
+        assertEquals(3, result);
+    }    
 
     @Test
     @DisplayName("Should return 0 for null input")

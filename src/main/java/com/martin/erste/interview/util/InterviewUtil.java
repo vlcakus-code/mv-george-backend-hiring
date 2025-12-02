@@ -13,23 +13,24 @@ public class InterviewUtil {
 
 	}
 
-	public static Set<String> readIgnoredWordsFromFile(InputStream inputStream){
+	public static Set<String> readLinesFromFile(InputStream inputStream){
 		if(inputStream == null) {
 			return new HashSet<String>();
+			
 		}
-		Set<String> ignoredWords = new HashSet<>();
+		Set<String> lines = new HashSet<>();
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				if (!line.trim().isEmpty()) {
-					ignoredWords.add(line.trim());
+					lines.add(line.trim());
 				}
 			}
 
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to read ignored words from file", e);
 		}
-		return ignoredWords;
+		return lines;
 	}
 
 }

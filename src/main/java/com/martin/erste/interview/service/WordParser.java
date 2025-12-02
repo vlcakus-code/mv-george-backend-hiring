@@ -26,11 +26,11 @@ public class WordParser {
 		if(in == null || in.isBlank()) {
 			return 0;			
 		}		
-		String[] words = in.replaceAll("\\d", " ").split("\\s+");
+		String[] words = in.replaceAll("[^a-zA-Z]", " ").split("\\s+");
 		int result = 0;
 		for(String word : words) {
 			
-			if(ignoredWords == null || !ignoredWords.contains(word)) {
+			if((ignoredWords == null || !ignoredWords.contains(word)) && word.length() > 0) {
 				result++;
 			}
 		}

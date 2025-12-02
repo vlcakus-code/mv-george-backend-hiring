@@ -15,19 +15,36 @@ public class JavaInterviewApplication {
 		this.wordParser = parser;		
 	}
 	
-	public static void main(String args[]) {	
+	public static void main(String args[]) {			
 		InputStream inputStream = JavaInterviewApplication.class.getClassLoader().getResourceAsStream("stopwords.txt");		
-		Set<String> ignoredWordsFromFile = InterviewUtil.readIgnoredWordsFromFile(inputStream);
+		Set<String> ignoredWordsFromFile = InterviewUtil.readLinesFromFile(inputStream);
 		JavaInterviewApplication app = new JavaInterviewApplication(new WordParser(ignoredWordsFromFile));
-		app.countWordsFromInput();
+		String param = (args != null && args.length > 0) ? args[0] : null;
+		String line = app.getWordsFromInput(param);
+		if(line == null) {
+			try (Scanner lineScanner = new Scanner(System.in)) {
+				System.out.print("Enter text: ");
+				line = lineScanner.nextLine();					
+			}
+		}
+		System.out.println("Number of words: " + app.getWordParser().getWordsCount(line));
 	}
 	
-	public void countWordsFromInput() {
-		try (Scanner lineScanner = new Scanner(System.in)) {
-			System.out.print("Enter text: ");
-			String inputLine = lineScanner.nextLine();	
-			System.out.println("Number of words: " + wordParser.getWordsCount(inputLine));
+	public String getWordsFromInput(final String param) {	
+		if(param == null) {
+			return null;
 		}		
-	}	
+		InputStream inputStream = JavaInterviewApplication.class.getClassLoader().getResourceAsStream(param);	
+		if(inputStream == null) {
+			return null;
+		}
+		Set<String> wordsFromFile = InterviewUtil.readLinesFromFile(inputStream);
+		StringBuilder allWords = new StringBuilder();
+		wordsFromFile.stream().forEach(x -> allWords.append(" " + x));
+		return allWords.toString();			
+	}
 
+	public WordParser getWordParser() {
+		return wordParser;
+	}	
 }
